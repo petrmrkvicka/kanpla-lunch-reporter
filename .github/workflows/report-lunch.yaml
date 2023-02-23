@@ -1,7 +1,7 @@
 name: Schedule
 on:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 30 10 ? * MON-FRI *"
   push:
     branches:
       - main
@@ -23,4 +23,9 @@ jobs:
         run: |
           yarn
       - name: Report the menu
+        with:
+        env: # Or as an environment variable
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          MODULE_ID: ${{ secrets.MODULE_ID }}
         run: yarn report-menu
