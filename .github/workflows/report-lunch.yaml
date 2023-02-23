@@ -24,8 +24,9 @@ jobs:
           yarn
       - name: Report the menu
         with:
-        env: # Or as an environment variable
-          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-          MODULE_ID: ${{ secrets.MODULE_ID }}
-        run: yarn report-menu
+          env: # Or as an environment variable
+            BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+            SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+            MODULE_ID: ${{ secrets.MODULE_ID }}
+        run: |
+          yarn report-menu
