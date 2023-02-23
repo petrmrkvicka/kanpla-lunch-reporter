@@ -54,15 +54,10 @@ const postMenu = async () => {
       }),
     ];
 
-    console.log(
-      "🚀 ~ file: post-menu.ts:65 ~ postMenu ~ messageConstructor:",
-      messageConstructor
-    );
-
-    const response = await axios.post(
+    await axios.post(
       "https://slack.com/api/chat.postMessage",
       {
-        channel: "C04R0NJE2CC",
+        channel: "C02ULM5MYEQ",
         blocks: messageConstructor,
         icon_emoji: "🥗",
         username: "Here comes the lunch!",
@@ -74,8 +69,6 @@ const postMenu = async () => {
         },
       }
     );
-
-    console.log(response.data);
 
     return null;
   } catch (e) {
