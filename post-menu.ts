@@ -1,6 +1,8 @@
 const postMenu = async () => {
   const axios = require("axios");
   require("dotenv").config();
+  const translatte = require("translatte");
+
   try {
     const moduleId = process.env.MODULE_ID;
     const bearerToken = process.env.BEARER_TOKEN;
@@ -24,6 +26,39 @@ const postMenu = async () => {
 
     const menus = data?.menus;
 
+    const languages = [
+      { name: "en", emoji: "🇬🇧" },
+      { name: "cs", emoji: "🇨🇿" },
+      { name: "it", emoji: "🇮🇹" },
+      { name: "sk", emoji: "🇸🇰" },
+      { name: "uk", emoji: "🇺🇦" },
+      { name: "fr", emoji: "🇫🇷" },
+      { name: "ko", emoji: "🇰🇷" },
+      { name: "haw", emoji: "🌺" },
+      { name: "tl", emoji: "🇵🇭" },
+    ];
+
+    const extendedMenuPromises = menus.map(async (menu) => {
+      const translationPromises = languages.map(async ({ name, emoji }) => ({
+        text: (
+          await translatte(menu?.name, {
+            from: "da",
+            to: name,
+          })
+        ).text,
+        lang: emoji,
+      }));
+
+      const translations = await Promise.all(translationPromises);
+
+      return {
+        ...menu,
+        translations,
+      };
+    });
+
+    const extendedMenu = await Promise.all(extendedMenuPromises);
+
     const messageConstructor = [
       {
         type: "section",
@@ -32,14 +67,16 @@ const postMenu = async () => {
           text: `This is the menu for ${da}-${mo}-${ye} 🥗😍`,
         },
       },
-      ...menus.map((menu) => {
+      ...extendedMenu.map((menu) => {
         const product = data?.products?.find((p) => p.id === menu?.productId);
 
         return {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `*${menu.productName}*\n${menu.name}`,
+            text: `*${menu.productName}*\n${menu.name}\n${menu.translations
+              ?.map((m) => `- ${m.lang}: ${m.text}`)
+              .join("\n")}`,
           },
           ...(product?.photo
             ? {
