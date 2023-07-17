@@ -59,6 +59,11 @@ const postMenu = async () => {
 
     const extendedMenu = await Promise.all(extendedMenuPromises);
 
+    if (!extendedMenu.length) {
+      console.log("No lunch");
+      return null;
+    }
+
     const messageConstructor = [
       {
         type: "section",
