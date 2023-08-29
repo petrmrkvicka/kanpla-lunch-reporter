@@ -79,7 +79,7 @@ const postMenu = async () => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `*${menu.productName}*\n${menu.name}\n${menu.translations
+            text: `*${menu.productName}*\n${menu.name || menu.description}\n${menu.translations
               ?.map((m) => `- ${m.lang}: ${m.text}`)
               .join("\n")}`,
           },
