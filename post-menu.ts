@@ -39,9 +39,11 @@ const postMenu = async () => {
     ];
 
     const extendedMenuPromises = menus.map(async (menu) => {
+      
+      
       const translationPromises = languages.map(async ({ name, emoji }) => ({
         text: (
-          await translatte(menu?.name, {
+          await translatte(menu?.name || menu?.description, {
             from: "da",
             to: name,
           })
