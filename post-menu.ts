@@ -31,11 +31,6 @@ const postMenu = async () => {
       { name: "cs", emoji: "🇨🇿" },
       { name: "it", emoji: "🇮🇹" },
       { name: "sk", emoji: "🇸🇰" },
-      { name: "uk", emoji: "🇺🇦" },
-      { name: "fr", emoji: "🇫🇷" },
-      { name: "ko", emoji: "🇰🇷" },
-      { name: "haw", emoji: "🌺" },
-      { name: "tl", emoji: "🇵🇭" },
     ];
 
     const extendedMenuPromises = menus.map(async (menu) => {
